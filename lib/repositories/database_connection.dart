@@ -14,6 +14,6 @@ class DatabaseConnection {
 
   _onCreatingDatabase(Database database, int version) async {
     await database.execute(
-        "CREATE TABLE note(id INTEGER PRIMARY KEY, title TEXT, description TEXT, date TEXT)");
+        "CREATE TABLE notes(id INTEGER PRIMARY KEY, title TEXT, description TEXT, date TEXT)");
   }
 }

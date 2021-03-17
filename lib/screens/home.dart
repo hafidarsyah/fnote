@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noteapp/models/note_model.dart';
 import 'package:noteapp/screens/add.dart';
+import 'package:noteapp/services/note_service.dart';
 import 'package:noteapp/utils/constants.dart';
 
 class Home extends StatefulWidget {
@@ -9,6 +11,31 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  NoteService _noteService = NoteService();
+  List<NoteModel> _noteList = <NoteModel>[];
+
+  @override
+  void initState() {
+    super.initState();
+    getAllNotes();
+  }
+
+  getAllNotes() async {
+    dynamic notes = await _noteService.readNotes();
+
+    notes.forEach((note) {
+      setState(() {
+        NoteModel noteModel = NoteModel();
+
+        noteModel.title = note['title'];
+        noteModel.description = note['description'];
+        noteModel.date = note['date'];
+
+        _noteList.add(noteModel);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,24 +46,40 @@ class _HomeState extends State<Home> {
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
         ),
       ),
-      body: GridView.count(
-          crossAxisCount: 2,
-          children: List.generate(100, (index) {
-            return Center(
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                  width: 180,
-                  height: 180,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: lightBlueColor),
-                  child: Text("text"),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 0),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10),
+          itemCount: _noteList.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: lightBlueColor),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _noteList[index].title,
+                      style: blackTextStyle.copyWith(fontSize: 16),
+                    ),
+                    Text(
+                      _noteList[index].description,
+                      style: greyTextStyle.copyWith(fontSize: 14),
+                    ),
+                  ],
                 ),
               ),
             );
-          })),
+          },
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)

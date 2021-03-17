@@ -2,7 +2,12 @@ import 'package:sqflite/sqflite.dart';
 import 'database_connection.dart';
 
 class Repository {
-  DatabaseConnection _databaseConnection = DatabaseConnection();
+  DatabaseConnection _databaseConnection;
+
+  Repository() {
+    _databaseConnection = DatabaseConnection();
+  }
+
   static Database _database;
 
   Future<Database> get database async {
@@ -14,5 +19,10 @@ class Repository {
   insertData(table, data) async {
     Database connection = await database;
     return await connection.insert(table, data);
+  }
+
+  readData(table) async {
+    Database connection = await database;
+    return await connection.query(table);
   }
 }

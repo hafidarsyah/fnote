@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:noteapp/models/note_model.dart';
 import 'package:noteapp/screens/home.dart';
 import 'package:noteapp/services/note_service.dart';
@@ -79,7 +80,8 @@ class _AddState extends State<Add> {
 
                 noteModel.title = _titleTextEditingController.text;
                 noteModel.description = _descriptionTextEditingController.text;
-                noteModel.date = _dateTime.toString();
+                noteModel.date =
+                    DateFormat('yyyy-MM-dd').format(_dateTime).toString();
 
                 NoteService _noteService = NoteService();
                 dynamic result = await _noteService.saveNote(noteModel);
