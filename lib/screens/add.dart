@@ -43,13 +43,13 @@ class _AddState extends State<Add> {
               cursorColor: blueColor,
               decoration: InputDecoration(
                 labelText: 'Title',
-                labelStyle: TextStyle(color: blackColor),
+                labelStyle: TextStyle(color: blueColor),
                 hintText: 'Write note title',
                 hintStyle: TextStyle(color: greyColor),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blueColor)),
+                    borderSide: BorderSide(color: blackColor)),
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blueColor)),
+                    borderSide: BorderSide(color: blackColor)),
               ),
               autofocus: true,
             ),
@@ -57,20 +57,17 @@ class _AddState extends State<Add> {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: TextField(
-              controller: _descriptionTextEditingController,
-              cursorColor: blueColor,
-              maxLines: 8,
-              decoration: InputDecoration(
-                labelText: 'Title',
-                labelStyle: TextStyle(color: blackColor),
-                hintText: 'Write note title',
-                hintStyle: TextStyle(color: greyColor),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blueColor)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blueColor)),
-              ),
-            ),
+                controller: _descriptionTextEditingController,
+                cursorColor: blueColor,
+                maxLines: 8,
+                decoration: InputDecoration(
+                    labelText: 'Description',
+                    labelStyle: TextStyle(color: blueColor),
+                    hintStyle: TextStyle(color: greyColor),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: blackColor)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: blackColor)))),
           ),
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -85,6 +82,8 @@ class _AddState extends State<Add> {
 
                 NoteService _noteService = NoteService();
                 dynamic result = await _noteService.saveNote(noteModel);
+
+                print(DateFormat('yyyy-MM-dd').format(_dateTime).toString());
 
                 if (result > 0) {
                   print('success');

@@ -47,30 +47,39 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 0),
+        padding: EdgeInsets.symmetric(horizontal: 8.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10),
+              maxCrossAxisExtent: 200, crossAxisSpacing: 10),
           itemCount: _noteList.length,
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {},
               child: Container(
-                padding: EdgeInsets.all(10),
+                margin: EdgeInsetsDirectional.only(top: 10),
+                padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: lightBlueColor),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      _noteList[index].title,
-                      style: blackTextStyle.copyWith(fontSize: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _noteList[index].title,
+                          style: blackTextStyle.copyWith(fontSize: 16),
+                        ),
+                        Text(
+                          _noteList[index].description,
+                          style: greyTextStyle.copyWith(fontSize: 14),
+                        ),
+                      ],
                     ),
                     Text(
-                      _noteList[index].description,
+                      _noteList[index].date,
                       style: greyTextStyle.copyWith(fontSize: 14),
                     ),
                   ],
