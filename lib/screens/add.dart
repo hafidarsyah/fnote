@@ -84,8 +84,6 @@ class _AddState extends State<Add> {
                 NoteService _noteService = NoteService();
                 dynamic result = await _noteService.saveNote(noteModel);
 
-                print(DateFormat('yyyy-MM-dd').format(_dateTime).toString());
-
                 if (result > 0) {
                   print('success');
                 }
