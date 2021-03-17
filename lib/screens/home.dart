@@ -62,59 +62,55 @@ class _HomeState extends State<Home> {
 
   _display() {
     if (_noteList.length > 0) {
-      return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10),
-          itemCount: _noteList.length,
-          itemBuilder: (context, index) {
-            return Material(
+      return GridView.builder(
+        padding: EdgeInsets.all(8.0),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200, crossAxisSpacing: 10, mainAxisSpacing: 10),
+        itemCount: _noteList.length,
+        itemBuilder: (context, index) {
+          return Material(
+            borderRadius: BorderRadius.circular(10),
+            color: lightBlueColor,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => Detail(id: _noteList[index].id)));
+              },
               borderRadius: BorderRadius.circular(10),
-              color: lightBlueColor,
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => Detail(id: _noteList[index].id)));
-                },
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _noteList[index].title,
-                            overflow: TextOverflow.ellipsis,
-                            style: blueTextStyle.copyWith(fontSize: 16),
+              child: Container(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _noteList[index].title,
+                          overflow: TextOverflow.ellipsis,
+                          style: blueTextStyle.copyWith(fontSize: 16),
+                        ),
+                        SizedBox(height: 6),
+                        SizedBox(
+                          height: 98,
+                          child: Text(
+                            _noteList[index].description,
+                            style: blackTextStyle.copyWith(fontSize: 14),
                           ),
-                          SizedBox(height: 6),
-                          SizedBox(
-                            height: 98,
-                            child: Text(
-                              _noteList[index].description,
-                              style: blackTextStyle.copyWith(fontSize: 14),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        _noteList[index].date,
-                        style: blackTextStyle.copyWith(fontSize: 14),
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      _noteList[index].date,
+                      style: blackTextStyle.copyWith(fontSize: 14),
+                    ),
+                  ],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       );
     }
     return Center(
