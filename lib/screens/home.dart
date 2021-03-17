@@ -99,7 +99,6 @@ class _HomeState extends State<Home> {
                             height: 98,
                             child: Text(
                               _noteList[index].description,
-                              // overflow: TextOverflow.ellipsis,
                               style: blackTextStyle.copyWith(fontSize: 14),
                             ),
                           ),
