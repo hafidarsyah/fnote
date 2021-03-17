@@ -2,11 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'database_connection.dart';
 
 class Repository {
-  DatabaseConnection _databaseConnection;
-
-  Repository() {
-    _databaseConnection = DatabaseConnection();
-  }
+  DatabaseConnection _databaseConnection = DatabaseConnection();
 
   static Database _database;
 
@@ -24,5 +20,17 @@ class Repository {
   readData(table) async {
     Database connection = await database;
     return await connection.query(table);
+  }
+
+  readDataByColumn(table, column, value) async {
+    Database connection = await database;
+    return await connection
+        .query(table, where: '$column=?', whereArgs: [value]);
+  }
+
+  updateData(table, data) async {
+    Database connection = await database;
+    return await connection
+        .update(table, data, where: 'id=?', whereArgs: [data['id']]);
   }
 }

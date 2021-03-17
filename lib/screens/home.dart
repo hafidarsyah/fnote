@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noteapp/models/note_model.dart';
 import 'package:noteapp/screens/add.dart';
+import 'package:noteapp/screens/detail.dart';
 import 'package:noteapp/services/note_service.dart';
 import 'package:noteapp/utils/constants.dart';
 
@@ -27,6 +28,7 @@ class _HomeState extends State<Home> {
       setState(() {
         NoteModel noteModel = NoteModel();
 
+        noteModel.id = note['id'].toString();
         noteModel.title = note['title'];
         noteModel.description = note['description'];
         noteModel.date = note['date'];
@@ -50,39 +52,45 @@ class _HomeState extends State<Home> {
         padding: EdgeInsets.symmetric(horizontal: 8.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200, crossAxisSpacing: 10),
+              maxCrossAxisExtent: 200,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10),
           itemCount: _noteList.length,
           itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {},
-              child: Container(
-                margin: EdgeInsetsDirectional.only(top: 10),
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: lightBlueColor),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          _noteList[index].title,
-                          style: blueTextStyle.copyWith(fontSize: 16),
-                        ),
-                        Text(
-                          _noteList[index].description,
-                          style: blackTextStyle.copyWith(fontSize: 14),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      _noteList[index].date,
-                      style: blackTextStyle.copyWith(fontSize: 14),
-                    ),
-                  ],
+            return Material(
+              borderRadius: BorderRadius.circular(10),
+              color: lightBlueColor,
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => Detail(id: _noteList[index].id)));
+                },
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _noteList[index].title,
+                            style: blueTextStyle.copyWith(fontSize: 16),
+                          ),
+                          Text(
+                            _noteList[index].description,
+                            style: blackTextStyle.copyWith(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        _noteList[index].date,
+                        style: blackTextStyle.copyWith(fontSize: 14),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
