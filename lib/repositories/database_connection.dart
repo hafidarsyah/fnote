@@ -12,6 +12,7 @@ class DatabaseConnection {
     return database;
   }
 
+  // create table notes
   _onCreatingDatabase(Database database, int version) async {
     await database.execute(
         "CREATE TABLE notes(id INTEGER PRIMARY KEY, title TEXT, description TEXT, date TEXT)");

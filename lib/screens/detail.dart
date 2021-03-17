@@ -33,6 +33,7 @@ class _DetailState extends State<Detail> {
 
   getNote() async {
     dynamic note = await _noteService.readNoteById(this.widget.id);
+
     _titleTextEditingController.text = note[0]['title'];
     _descriptionTextEditingController.text = note[0]['description'];
   }
