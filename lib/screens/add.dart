@@ -16,6 +16,8 @@ class _AddState extends State<Add> {
       TextEditingController();
   DateTime _dateTime = DateTime.now();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,74 +35,86 @@ class _AddState extends State<Add> {
           style: whiteTextStyle,
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 12),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _titleTextEditingController,
-              cursorColor: blueColor,
-              decoration: InputDecoration(
-                labelText: 'Title',
-                labelStyle: TextStyle(color: blackColor),
-                hintText: 'Write note title',
-                hintStyle: greyTextStyle,
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blueColor)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blueColor)),
-              ),
-              autofocus: true,
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            SizedBox(height: 12),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextFormField(
+                  controller: _titleTextEditingController,
+                  cursorColor: blueColor,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Required';
+                    }
+                    return null;
+                  },
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                    labelStyle: TextStyle(color: blackColor),
+                    hintText: 'Write note title',
+                    hintStyle: greyTextStyle,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: blueColor)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: blueColor)),
+                  )),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TextField(
-                controller: _descriptionTextEditingController,
-                cursorColor: blueColor,
-                maxLines: 8,
-                decoration: InputDecoration(
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                  controller: _descriptionTextEditingController,
+                  cursorColor: blueColor,
+                  maxLines: 8,
+                  decoration: InputDecoration(
                     labelText: 'Description',
                     labelStyle: TextStyle(color: blackColor),
                     hintText: 'Write note description',
                     hintStyle: greyTextStyle,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: blueColor)),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: blueColor)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: blueColor)))),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: () async {
-                NoteModel noteModel = NoteModel();
-
-                noteModel.title = _titleTextEditingController.text;
-                noteModel.description = _descriptionTextEditingController.text;
-                noteModel.date =
-                    DateFormat('yyyy-MM-dd').format(_dateTime).toString();
-
-                NoteService _noteService = NoteService();
-                dynamic result = await _noteService.saveNote(noteModel);
-
-                if (result > 0) {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Home()));
-                }
-              },
-              child: Text(
-                "Save",
-                style: whiteTextStyle,
-              ),
-              style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(0),
-                  backgroundColor: MaterialStateProperty.all(blueColor),
-                  padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 28, vertical: 12))),
+                  )),
             ),
-          )
-        ],
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    NoteModel noteModel = NoteModel();
+
+                    noteModel.title = _titleTextEditingController.text;
+                    noteModel.description =
+                        _descriptionTextEditingController.text;
+                    noteModel.date =
+                        DateFormat('yyyy-MM-dd').format(_dateTime).toString();
+
+                    NoteService _noteService = NoteService();
+                    dynamic result = await _noteService.saveNote(noteModel);
+
+                    if (result > 0) {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => Home()));
+                    }
+                  }
+                },
+                child: Text(
+                  "Save",
+                  style: whiteTextStyle,
+                ),
+                style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(0),
+                    backgroundColor: MaterialStateProperty.all(blueColor),
+                    padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 28, vertical: 12))),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -23,6 +23,8 @@ class _DetailState extends State<Detail> {
   NoteService _noteService = NoteService();
   NoteModel _noteModel = NoteModel();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -44,17 +46,19 @@ class _DetailState extends State<Detail> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
           onPressed: () async {
-            _noteModel.id = this.widget.id;
-            _noteModel.title = _titleTextEditingController.text;
-            _noteModel.description = _descriptionTextEditingController.text;
-            _noteModel.date =
-                DateFormat('yyyy-MM-dd').format(_dateTime).toString();
+            if (_formKey.currentState.validate()) {
+              _noteModel.id = this.widget.id;
+              _noteModel.title = _titleTextEditingController.text;
+              _noteModel.description = _descriptionTextEditingController.text;
+              _noteModel.date =
+                  DateFormat('yyyy-MM-dd').format(_dateTime).toString();
 
-            dynamic result = await _noteService.updateNote(_noteModel);
+              dynamic result = await _noteService.updateNote(_noteModel);
 
-            if (result > 0) {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => Home()));
+              if (result > 0) {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => Home()));
+              }
             }
           },
         ),
@@ -74,44 +78,53 @@ class _DetailState extends State<Detail> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 12),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _titleTextEditingController,
-              cursorColor: blueColor,
-              decoration: InputDecoration(
-                labelText: 'Title',
-                labelStyle: TextStyle(color: blackColor),
-                hintText: 'Write note title',
-                hintStyle: greyTextStyle,
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blueColor)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blueColor)),
-              ),
-              autofocus: true,
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            SizedBox(height: 12),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextFormField(
+                  controller: _titleTextEditingController,
+                  cursorColor: blueColor,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Required';
+                    }
+                    return null;
+                  },
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                    labelStyle: TextStyle(color: blackColor),
+                    hintText: 'Write note title',
+                    hintStyle: greyTextStyle,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: blueColor)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: blueColor)),
+                  )),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TextField(
-                controller: _descriptionTextEditingController,
-                cursorColor: blueColor,
-                maxLines: 8,
-                decoration: InputDecoration(
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                  controller: _descriptionTextEditingController,
+                  cursorColor: blueColor,
+                  maxLines: 8,
+                  decoration: InputDecoration(
                     labelText: 'Description',
                     labelStyle: TextStyle(color: blackColor),
                     hintText: 'Write note description',
                     hintStyle: greyTextStyle,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: blueColor)),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: blueColor)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: blueColor)))),
-          ),
-        ],
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }

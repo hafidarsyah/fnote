@@ -48,7 +48,21 @@ class _HomeState extends State<Home> {
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
         ),
       ),
-      body: Padding(
+      body: _display(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (context) => Add()));
+        },
+        child: Icon(Icons.add),
+        backgroundColor: blueColor,
+      ),
+    );
+  }
+
+  _display() {
+    if (_noteList.length > 0) {
+      return Padding(
         padding: EdgeInsets.symmetric(horizontal: 8.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -77,11 +91,17 @@ class _HomeState extends State<Home> {
                         children: [
                           Text(
                             _noteList[index].title,
+                            overflow: TextOverflow.ellipsis,
                             style: blueTextStyle.copyWith(fontSize: 16),
                           ),
-                          Text(
-                            _noteList[index].description,
-                            style: blackTextStyle.copyWith(fontSize: 14),
+                          SizedBox(height: 6),
+                          SizedBox(
+                            height: 98,
+                            child: Text(
+                              _noteList[index].description,
+                              // overflow: TextOverflow.ellipsis,
+                              style: blackTextStyle.copyWith(fontSize: 14),
+                            ),
                           ),
                         ],
                       ),
@@ -96,14 +116,12 @@ class _HomeState extends State<Home> {
             );
           },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) => Add()));
-        },
-        child: Icon(Icons.add),
-        backgroundColor: blueColor,
+      );
+    }
+    return Center(
+      child: Text(
+        "Empty",
+        style: greyTextStyle,
       ),
     );
   }

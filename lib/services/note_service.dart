@@ -9,7 +9,7 @@ class NoteService {
   }
 
   readNotes() async {
-    return await _repository.readData('notes');
+    return await _repository.readData('notes', 'id');
   }
 
   readNoteById(id) async {

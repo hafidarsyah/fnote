@@ -17,9 +17,12 @@ class Repository {
     return await connection.insert(table, data);
   }
 
-  readData(table) async {
+  readData(table, column) async {
     Database connection = await database;
-    return await connection.query(table);
+    return await connection.query(
+      table,
+      orderBy: column + ' DESC',
+    );
   }
 
   readDataByColumn(table, column, value) async {
