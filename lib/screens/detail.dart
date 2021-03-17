@@ -78,52 +78,54 @@ class _DetailState extends State<Detail> {
           )
         ],
       ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            SizedBox(height: 12),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextFormField(
-                  controller: _titleTextEditingController,
-                  cursorColor: blueColor,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Required';
-                    }
-                    return null;
-                  },
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    labelText: 'Title',
-                    labelStyle: TextStyle(color: blackColor),
-                    hintText: 'Write note title',
-                    hintStyle: greyTextStyle,
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: blueColor)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: blueColor)),
-                  )),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                  controller: _descriptionTextEditingController,
-                  cursorColor: blueColor,
-                  maxLines: 8,
-                  decoration: InputDecoration(
-                    labelText: 'Description',
-                    labelStyle: TextStyle(color: blackColor),
-                    hintText: 'Write note description',
-                    hintStyle: greyTextStyle,
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: blueColor)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: blueColor)),
-                  )),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              SizedBox(height: 12),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextFormField(
+                    controller: _titleTextEditingController,
+                    cursorColor: blueColor,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Required';
+                      }
+                      return null;
+                    },
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      labelText: 'Title',
+                      labelStyle: TextStyle(color: blackColor),
+                      hintText: 'Write note title',
+                      hintStyle: greyTextStyle,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: blueColor)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: blueColor)),
+                    )),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextField(
+                    controller: _descriptionTextEditingController,
+                    cursorColor: blueColor,
+                    maxLines: 8,
+                    decoration: InputDecoration(
+                      labelText: 'Description',
+                      labelStyle: TextStyle(color: blackColor),
+                      hintText: 'Write note description',
+                      hintStyle: greyTextStyle,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: blueColor)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: blueColor)),
+                    )),
+              ),
+            ],
+          ),
         ),
       ),
     );
