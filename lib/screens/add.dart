@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:noteapp/models/note_model.dart';
 import 'package:noteapp/screens/home.dart';
+import 'package:noteapp/services/note_service.dart';
 import 'package:noteapp/utils/constants.dart';
 
 class Add extends StatefulWidget {
@@ -9,6 +10,11 @@ class Add extends StatefulWidget {
 }
 
 class _AddState extends State<Add> {
+  TextEditingController _titleTextEditingController = TextEditingController();
+  TextEditingController _descriptionTextEditingController =
+      TextEditingController();
+  DateTime _dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +38,7 @@ class _AddState extends State<Add> {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: TextField(
+              controller: _titleTextEditingController,
               cursorColor: blueColor,
               decoration: InputDecoration(
                 labelText: 'Title',
@@ -49,6 +56,7 @@ class _AddState extends State<Add> {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: TextField(
+              controller: _descriptionTextEditingController,
               cursorColor: blueColor,
               maxLines: 8,
               decoration: InputDecoration(
@@ -66,7 +74,20 @@ class _AddState extends State<Add> {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                NoteModel noteModel = NoteModel();
+
+                noteModel.title = _titleTextEditingController.text;
+                noteModel.description = _descriptionTextEditingController.text;
+                noteModel.date = _dateTime.toString();
+
+                NoteService _noteService = NoteService();
+                dynamic result = await _noteService.saveNote(noteModel);
+
+                if (result > 0) {
+                  print('success');
+                }
+              },
               child: Text(
                 "Save",
                 style: whiteTextStyle,
@@ -75,7 +96,7 @@ class _AddState extends State<Add> {
                   elevation: MaterialStateProperty.all(0),
                   backgroundColor: MaterialStateProperty.all(blueColor),
                   padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 28, vertical: 14))),
+                      EdgeInsets.symmetric(horizontal: 28, vertical: 12))),
             ),
           )
         ],
