@@ -40,7 +40,7 @@ class _DetailState extends State<Detail> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: blueColor,
-        title: Text(this.widget.id),
+        title: Text("Detail"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
           onPressed: () async {
@@ -63,7 +63,14 @@ class _DetailState extends State<Detail> {
             icon: Icon(
               Icons.delete,
             ),
-            onPressed: () {},
+            onPressed: () async {
+              dynamic result = await _noteService.deleteNote(this.widget.id);
+
+              if (result > 0) {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => Home()));
+              }
+            },
           )
         ],
       ),

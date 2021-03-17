@@ -85,7 +85,8 @@ class _AddState extends State<Add> {
                 dynamic result = await _noteService.saveNote(noteModel);
 
                 if (result > 0) {
-                  print('success');
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => Home()));
                 }
               },
               child: Text(

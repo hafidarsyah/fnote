@@ -19,4 +19,8 @@ class NoteService {
   updateNote(NoteModel noteModel) async {
     return await _repository.updateData('notes', noteModel.noteMap());
   }
+
+  deleteNote(id) async {
+    return await _repository.deleteData('notes', id);
+  }
 }
