@@ -70,17 +70,17 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           _noteList[index].title,
-                          style: blackTextStyle.copyWith(fontSize: 16),
+                          style: blueTextStyle.copyWith(fontSize: 16),
                         ),
                         Text(
                           _noteList[index].description,
-                          style: greyTextStyle.copyWith(fontSize: 14),
+                          style: blackTextStyle.copyWith(fontSize: 14),
                         ),
                       ],
                     ),
                     Text(
                       _noteList[index].date,
-                      style: greyTextStyle.copyWith(fontSize: 14),
+                      style: blackTextStyle.copyWith(fontSize: 14),
                     ),
                   ],
                 ),

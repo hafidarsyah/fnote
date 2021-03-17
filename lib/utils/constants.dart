@@ -10,7 +10,8 @@ Color lightBlueColor = Color(0x11383dbf);
 TextStyle whiteTextStyle =
     GoogleFonts.poppins(color: whiteColor, fontWeight: FontWeight.w700);
 
-TextStyle blackTextStyle =
+TextStyle blueTextStyle =
     GoogleFonts.poppins(color: blueColor, fontWeight: FontWeight.w500);
 
-TextStyle greyTextStyle = GoogleFonts.roboto(color: blackColor);
+TextStyle greyTextStyle = GoogleFonts.roboto(color: greyColor);
+TextStyle blackTextStyle = GoogleFonts.roboto(color: blackColor);

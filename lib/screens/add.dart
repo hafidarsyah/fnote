@@ -43,13 +43,13 @@ class _AddState extends State<Add> {
               cursorColor: blueColor,
               decoration: InputDecoration(
                 labelText: 'Title',
-                labelStyle: TextStyle(color: blueColor),
+                labelStyle: TextStyle(color: blackColor),
                 hintText: 'Write note title',
-                hintStyle: TextStyle(color: greyColor),
+                hintStyle: greyTextStyle,
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blackColor)),
+                    borderSide: BorderSide(color: blueColor)),
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: blackColor)),
+                    borderSide: BorderSide(color: blueColor)),
               ),
               autofocus: true,
             ),
@@ -62,12 +62,13 @@ class _AddState extends State<Add> {
                 maxLines: 8,
                 decoration: InputDecoration(
                     labelText: 'Description',
-                    labelStyle: TextStyle(color: blueColor),
-                    hintStyle: TextStyle(color: greyColor),
+                    labelStyle: TextStyle(color: blackColor),
+                    hintText: 'Write note description',
+                    hintStyle: greyTextStyle,
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: blackColor)),
+                        borderSide: BorderSide(color: blueColor)),
                     enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: blackColor)))),
+                        borderSide: BorderSide(color: blueColor)))),
           ),
           Padding(
             padding: EdgeInsets.all(8.0),
