@@ -20,7 +20,7 @@ Karena untuk melatih saya menggunakan SQLite di Flutter.
 
 ### 📝 Lisensi
 
-- Copyright © 2020 Hafid Ardiansyah.
+- Copyright © 2021 Hafid Ardiansyah.
 - **FNote MIT License.**
 
 ---
