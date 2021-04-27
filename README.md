@@ -16,7 +16,7 @@ FNote adalah aplikasi catatan, yang dibuat oleh <a href="https://github.com/hafi
 
 ### 🎉 Kenapa membuat FNote?
 
-Karena untuk melatih saya menggunakan SQLite di Flutter.
+Karena untuk melatih saya menggunakan SQFlite di Flutter.
 
 ### 📝 Lisensi
 
