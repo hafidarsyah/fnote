@@ -10,13 +10,7 @@
 
 </p>
 
-### 🤔 Apa itu FNote?
-
-FNote adalah aplikasi catatan, yang dibuat oleh <a href="https://github.com/hafidardiansyah"> Hafid Ardiansyah</a>. Menggunakan teknologi Flutter.
-
-### 🎉 Kenapa membuat FNote?
-
-Karena untuk melatih saya menggunakan SQFlite di Flutter.
+FNote adalah aplikasi catatan, yang dibuat oleh <a href="https://github.com/hafidardiansyah"> Hafid Ardiansyah</a>. Menggunakan teknologi Flutter dan SQFlite.
 
 ### 📝 Lisensi
 
