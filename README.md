@@ -1,4 +1,4 @@
-<h1 align="center">Selamat datang di FNote! 👋</h1>
+<h1 align="center">Welcome to FNote! 👋</h1>
     
 ![FNote - Screenshot](/assets/screenshot.png)
 
@@ -10,9 +10,9 @@
 
 </p>
 
-FNote adalah aplikasi catatan, yang dibuat oleh <a href="https://github.com/hafidardiansyah"> Hafid Ardiansyah</a>. Menggunakan teknologi Flutter dan SQFlite.
+A simple note taking app implementing Flutter and SQFlite technology
 
-### 📝 Lisensi
+### 📝 Licence
 
 - Copyright © 2021 Hafid Ardiansyah.
 - **FNote MIT License.**
